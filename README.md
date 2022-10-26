@@ -62,5 +62,5 @@ Datasets are not currently in this repository, they can be downloaded externally
 
 ## Visualizations
 
-To produce all plots, please run the jupyter notebook found [here](https://alexzeakis.github.io/Embedings4ER/jupyter/Full_Plots.ipynb).
+To produce all plots, please run the jupyter notebook found [here](https://github.com/alexZeakis/Embedings4ER/blob/main/jupyter/Full_Plots.ipynb).
 
