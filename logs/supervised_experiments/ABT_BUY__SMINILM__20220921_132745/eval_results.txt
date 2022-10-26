@@ -1,0 +1,208 @@
+***** Eval results after epoch -1 *****
+eval_loss: 0.7022240832448006
+f1_score: 0.1947674418604651
+simple_accuracy: 0.13211488250652742
+              precision    recall  f1-score   support
+
+           0       0.91      0.03      0.06      1709
+           1       0.11      0.98      0.19       206
+
+    accuracy                           0.13      1915
+   macro avg       0.51      0.50      0.13      1915
+weighted avg       0.83      0.13      0.07      1915
+
+***** Eval results after epoch 0 *****
+eval_loss: 0.18763957970465223
+f1_score: 0.6648199445983379
+simple_accuracy: 0.9368146214099217
+              precision    recall  f1-score   support
+
+           0       0.95      0.98      0.97      1709
+           1       0.77      0.58      0.66       206
+
+    accuracy                           0.94      1915
+   macro avg       0.86      0.78      0.81      1915
+weighted avg       0.93      0.94      0.93      1915
+
+***** Eval results after epoch 1 *****
+eval_loss: 0.13789298525856186
+f1_score: 0.8
+simple_accuracy: 0.9608355091383812
+              precision    recall  f1-score   support
+
+           0       0.97      0.99      0.98      1709
+           1       0.89      0.73      0.80       206
+
+    accuracy                           0.96      1915
+   macro avg       0.93      0.86      0.89      1915
+weighted avg       0.96      0.96      0.96      1915
+
+***** Eval results after epoch 2 *****
+eval_loss: 0.1358697192859836
+f1_score: 0.8153846153846153
+simple_accuracy: 0.9624020887728459
+              precision    recall  f1-score   support
+
+           0       0.97      0.99      0.98      1709
+           1       0.86      0.77      0.82       206
+
+    accuracy                           0.96      1915
+   macro avg       0.92      0.88      0.90      1915
+weighted avg       0.96      0.96      0.96      1915
+
+***** Eval results after epoch 3 *****
+eval_loss: 0.1635725004482083
+f1_score: 0.7771428571428571
+simple_accuracy: 0.9592689295039164
+              precision    recall  f1-score   support
+
+           0       0.96      1.00      0.98      1709
+           1       0.94      0.66      0.78       206
+
+    accuracy                           0.96      1915
+   macro avg       0.95      0.83      0.88      1915
+weighted avg       0.96      0.96      0.96      1915
+
+***** Eval results after epoch 4 *****
+eval_loss: 0.1583926067231611
+f1_score: 0.8280871670702179
+simple_accuracy: 0.9629242819843342
+              precision    recall  f1-score   support
+
+           0       0.98      0.98      0.98      1709
+           1       0.83      0.83      0.83       206
+
+    accuracy                           0.96      1915
+   macro avg       0.90      0.90      0.90      1915
+weighted avg       0.96      0.96      0.96      1915
+
+***** Eval results after epoch 5 *****
+eval_loss: 0.14583583811472636
+f1_score: 0.8520408163265305
+simple_accuracy: 0.9697127937336815
+              precision    recall  f1-score   support
+
+           0       0.98      0.99      0.98      1709
+           1       0.90      0.81      0.85       206
+
+    accuracy                           0.97      1915
+   macro avg       0.94      0.90      0.92      1915
+weighted avg       0.97      0.97      0.97      1915
+
+***** Eval results after epoch 6 *****
+eval_loss: 0.15042857704587126
+f1_score: 0.846938775510204
+simple_accuracy: 0.9686684073107049
+              precision    recall  f1-score   support
+
+           0       0.98      0.99      0.98      1709
+           1       0.89      0.81      0.85       206
+
+    accuracy                           0.97      1915
+   macro avg       0.93      0.90      0.91      1915
+weighted avg       0.97      0.97      0.97      1915
+
+***** Eval results after epoch 7 *****
+eval_loss: 0.16923228541660743
+f1_score: 0.8373333333333333
+simple_accuracy: 0.9681462140992168
+              precision    recall  f1-score   support
+
+           0       0.97      0.99      0.98      1709
+           1       0.93      0.76      0.84       206
+
+    accuracy                           0.97      1915
+   macro avg       0.95      0.88      0.91      1915
+weighted avg       0.97      0.97      0.97      1915
+
+***** Eval results after epoch 8 *****
+eval_loss: 0.16439849262727269
+f1_score: 0.8423772609819121
+simple_accuracy: 0.9681462140992168
+              precision    recall  f1-score   support
+
+           0       0.98      0.99      0.98      1709
+           1       0.90      0.79      0.84       206
+
+    accuracy                           0.97      1915
+   macro avg       0.94      0.89      0.91      1915
+weighted avg       0.97      0.97      0.97      1915
+
+***** Eval results after epoch 9 *****
+eval_loss: 0.16795477047756624
+f1_score: 0.8431876606683805
+simple_accuracy: 0.9681462140992168
+              precision    recall  f1-score   support
+
+           0       0.98      0.99      0.98      1709
+           1       0.90      0.80      0.84       206
+
+    accuracy                           0.97      1915
+   macro avg       0.94      0.89      0.91      1915
+weighted avg       0.97      0.97      0.97      1915
+
+***** Eval results after epoch 10 *****
+eval_loss: 0.18432041828685516
+f1_score: 0.8473684210526315
+simple_accuracy: 0.9697127937336815
+              precision    recall  f1-score   support
+
+           0       0.97      0.99      0.98      1709
+           1       0.93      0.78      0.85       206
+
+    accuracy                           0.97      1915
+   macro avg       0.95      0.89      0.92      1915
+weighted avg       0.97      0.97      0.97      1915
+
+***** Eval results after epoch 11 *****
+eval_loss: 0.19388931036179807
+f1_score: 0.8467532467532468
+simple_accuracy: 0.9691906005221932
+              precision    recall  f1-score   support
+
+           0       0.98      0.99      0.98      1709
+           1       0.91      0.79      0.85       206
+
+    accuracy                           0.97      1915
+   macro avg       0.94      0.89      0.91      1915
+weighted avg       0.97      0.97      0.97      1915
+
+***** Eval results after epoch 12 *****
+eval_loss: 0.18686452783367713
+f1_score: 0.8586387434554973
+simple_accuracy: 0.9718015665796345
+              precision    recall  f1-score   support
+
+           0       0.98      0.99      0.98      1709
+           1       0.93      0.80      0.86       206
+
+    accuracy                           0.97      1915
+   macro avg       0.95      0.89      0.92      1915
+weighted avg       0.97      0.97      0.97      1915
+
+***** Eval results after epoch 13 *****
+eval_loss: 0.19034556625095622
+f1_score: 0.854922279792746
+simple_accuracy: 0.970757180156658
+              precision    recall  f1-score   support
+
+           0       0.98      0.99      0.98      1709
+           1       0.92      0.80      0.85       206
+
+    accuracy                           0.97      1915
+   macro avg       0.95      0.90      0.92      1915
+weighted avg       0.97      0.97      0.97      1915
+
+***** Eval results after epoch 14 *****
+eval_loss: 0.18958166336766832
+f1_score: 0.857142857142857
+simple_accuracy: 0.9712793733681462
+              precision    recall  f1-score   support
+
+           0       0.98      0.99      0.98      1709
+           1       0.92      0.80      0.86       206
+
+    accuracy                           0.97      1915
+   macro avg       0.95      0.90      0.92      1915
+weighted avg       0.97      0.97      0.97      1915
+

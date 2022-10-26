@@ -1,0 +1,20 @@
+{
+  "data_dir": "dirty_amazon_itunes",
+  "data_processor": "DeepMatcherProcessor",
+  "model_name_or_path": "sentence-transformers/all-distilroberta-v1",
+  "model_type": "sdistilroberta",
+  "do_lower_case": true,
+  "max_seq_length": 180,
+  "train_batch_size": 16,
+  "eval_batch_size": 16,
+  "num_epochs": 15.0,
+  "save_model_after_epoch": false,
+  "learning_rate": 2e-05,
+  "adam_eps": 1e-08,
+  "warmup_steps": 0,
+  "max_grad_norm": 1.0,
+  "weight_decay": 0.0,
+  "seed": 22,
+  "data_path": "data/dirty_amazon_itunes",
+  "model_output_dir": "experiments"
+}
