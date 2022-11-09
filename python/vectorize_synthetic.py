@@ -4,7 +4,7 @@ import sys
 from utils import vectorizers
 
         
-input_dir = '../../data/big/profiles/'
+input_dir = '../data/big/profiles/'
 output_dir = '/mnt/data/entity_matching_embeddings/big/'
 if len(sys.argv) > 1:
     output_dir = sys.argv[1]

@@ -121,7 +121,7 @@ with open('../logs/blocking_recall_euclidean_big.csv', 'w') as o:
             print(name)
             
             
-            ground_file = './../../data/big/ground_truths/{}duplicates.csv'.format(name)
+            ground_file = '../data/big/ground_truths/{}duplicates.csv'.format(name)
             ground_df = pd.read_csv(ground_file, sep=sep)
             ground_results = set(ground_df.apply(lambda x: (x[0], x[1]), axis=1).values)
             

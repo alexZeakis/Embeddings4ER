@@ -1,5 +1,5 @@
 import pandas as pd
-from numpy import ones
+from numpy import ones, triu
 import scipy
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
@@ -57,7 +57,7 @@ def line_plot(df, col_columns, col_values, col_index, legend=False, ax=None, tit
     if legend:
         return plt.legend(bbox_to_anchor=(1.05, 1.05))
         
-def heatmap_plot(df, col_columns, col_values, col_index, legend=False, order=None):
+def heatmap_plot(df, col_columns, col_values, col_index, legend=False, order=None, ylabel=None, xlabel=""):
     df2 = df.pivot(columns=col_columns, values=col_values, index=col_index)
     if order is not None:
         df2 = df2[order]
@@ -66,10 +66,12 @@ def heatmap_plot(df, col_columns, col_values, col_index, legend=False, order=Non
     df2 = df2.loc[vorder]
     df2 ['Total'] = df2.apply(lambda x: x.mean(), axis=1)
     df2 = df2.rank(ascending=False, method='min')
-    sns.heatmap(df2, annot=True, cbar=legend)
+    ax = sns.heatmap(df2, annot=True, cbar=legend)
+    ax.set_ylabel(ylabel)
+    ax.set_xlabel(xlabel)
     #plt.show()
     
-def corr_plot(df, col_columns, col_values, col_index ):
+def corr_plot(df, col_columns, col_values, col_index, order=None, figsize=(10,10)):
     df2 = df[[col_columns, col_values, col_index]]
     
     df2['Total'] = df2.apply(lambda x: (x[col_columns], x[col_values]), axis=1)
@@ -77,6 +79,9 @@ def corr_plot(df, col_columns, col_values, col_index ):
     df2 = df2.apply(lambda x: sorted(x, key=lambda x: x[0]))
     df2 = df2.apply(lambda x: [y[1] for y in x])
 
+    if order is not None:
+        df2 = df2.loc[order]
+        
     no = df2.shape[0]
     pearsonr = ones((no, no))
 
@@ -84,7 +89,9 @@ def corr_plot(df, col_columns, col_values, col_index ):
         for j in range(i+1,no):
             pearsonr[i,j] = pearsonr[j,i] = scipy.stats.pearsonr(df2[df2.index[i]], df2[df2.index[j]])[0]
 
-    ax = sns.heatmap(pearsonr)
+    matrix = triu(pearsonr)
+    fig, ax = plt.subplots(figsize=figsize)            
+    ax = sns.heatmap(pearsonr, annot=True, mask=matrix, ax=ax)
     ax.set_xticks(range(no), df2.index, rotation=90)
     ax.set_yticks(range(no), df2.index, rotation=0)    
     
