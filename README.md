@@ -8,7 +8,7 @@ This repository contains the code, datasets and results of a thorough experiment
 
  - Word2vec: [Gensim](https://radimrehurek.com/gensim/models/word2vec.html)
  - GloVe: [Hugging Face](https://huggingface.co/sentence-transformers/average_word_embeddings_glove.840B.300d)
- - FastText: [Gensim](https://radimrehurek.com/gensim/models/fasttext.html#gensim.models.fasttext.FastText). For FastText please also download .bin file found [here]().
+ - FastText: [Gensim](https://radimrehurek.com/gensim/models/fasttext.html#gensim.models.fasttext.FastText). For FastText please also download .bin file found [here](https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.zip).
  - BERT: [Hugging Face](https://huggingface.co/bert-base-uncased) 
  - ALBERT: [Hugging Face](https://huggingface.co/albert-base-v2) 
  - RoBERTa: [Hugging Face](https://huggingface.co/roberta-base) 
