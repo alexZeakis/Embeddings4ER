@@ -33,7 +33,7 @@ def filter_df(df, filters):
     return df2    
 
 def line_plot(df, col_columns, col_values, col_index, legend=False, ax=None, title="", order=None, markers=None,
-             yscale='linear', ylabel=None, xlabel=""):
+             yscale='linear', ylabel=None, xlabel="", ylim=None):
     df2 = df.pivot(columns=col_columns, values=col_values, index=col_index)
     if order is not None:
         df2 = df2[order]
@@ -54,6 +54,9 @@ def line_plot(df, col_columns, col_values, col_index, legend=False, ax=None, tit
     
     ax.set_yscale(yscale)
     
+    if ylim is not None:
+        ax.set_ylim(ylim)
+    
     if legend:
         return plt.legend(bbox_to_anchor=(1.05, 1.05))
         
@@ -69,6 +72,9 @@ def heatmap_plot(df, col_columns, col_values, col_index, legend=False, order=Non
     ax = sns.heatmap(df2, annot=True, cbar=legend)
     ax.set_ylabel(ylabel)
     ax.set_xlabel(xlabel)
+    #ax.set_yticks(ax.get_yticks(), rotation=45
+    ax.set_yticklabels(ax.get_yticklabels(), rotation=0)
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=0)
     #plt.show()
     
 def corr_plot(df, col_columns, col_values, col_index, order=None, figsize=(10,10)):
@@ -92,7 +98,7 @@ def corr_plot(df, col_columns, col_values, col_index, order=None, figsize=(10,10
     matrix = triu(pearsonr)
     fig, ax = plt.subplots(figsize=figsize)            
     ax = sns.heatmap(pearsonr, annot=True, mask=matrix, ax=ax)
-    ax.set_xticks(range(no), df2.index, rotation=90)
+    ax.set_xticks(range(no), df2.index, rotation=0)
     ax.set_yticks(range(no), df2.index, rotation=0)    
     
 vectorizers_order = ['word2vec', 'fasttext', 'glove', 
