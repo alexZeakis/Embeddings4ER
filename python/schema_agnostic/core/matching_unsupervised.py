@@ -2,31 +2,25 @@
 import pandas as pd
 import torch
 from time import time
+from utils import vectorizers, cases, cosine_similarity
 import sys
-from utils import vectorizers, cases
+import os
 
-
-def cosine_similarity(a, b, eps=1e-8):
-    """
-    added eps for numerical stability
-    """
-    a_n, b_n = a.norm(dim=1)[:, None], b.norm(dim=1)[:, None]
-    a_norm = a / torch.clamp(a_n, min=eps)
-    b_norm = b / torch.clamp(b_n, min=eps)
-    sim_mt = torch.mm(a_norm, b_norm.transpose(0, 1))
-    return sim_mt
-
-
-# # Start NNS
-
-emb_dir = '/mnt/data/entity_matching_embeddings/real'
-if len(sys.argv) > 1:
-    emb_dir = sys.argv[1]
 gpu = True
 cosine = False
 
+if cosine:
+   sim = 'cosine'
+else:
+   sim = 'euclidean'
+
+data_dir = sys.argv[1]
+emb_dir = sys.argv[2]
+log_file = sys.argv[3] + f'matching_unsupervised_{sim}.csv'
+
 scores2 = []
 
+os.makedirs(os.path.dirname(log_file), exist_ok=True)
 for nocase, (data1, data2, ground_file, sep, dir, cols) in enumerate(cases):
     # if nocase >0:
     #     break
@@ -35,13 +29,13 @@ for nocase, (data1, data2, ground_file, sep, dir, cols) in enumerate(cases):
     print(nocase)
     #print(noc, data1, data2, ground_file, sep, dir, cols)
     
-    ground_file = '../data/real/{}/{}.csv'.format(dir, ground_file)
+    ground_file = '{}/{}/{}.csv'.format(data_dir, dir, ground_file)
     ground_df = pd.read_csv(ground_file, sep=sep)
     # ground_results = set(ground_df.apply(lambda x: (f'r_{x[0]}', f's_{x[1]}'), axis=1).values)
     ground_results = set(ground_df.apply(lambda x: (x[0], x[1]), axis=1).values)
     
     for nocol, (col1, col2) in enumerate(cols):
-        if nocol!=2:
+        if nocol != 2:
             continue
         for vec in vectorizers:
             print('\t{} {}\r'.format(nocol, vec), end='')
@@ -59,8 +53,8 @@ for nocase, (data1, data2, ground_file, sep, dir, cols) in enumerate(cases):
             df1 = torch.Tensor(df1).cuda()
             df2 = torch.Tensor(df2).cuda()
             
-            # df1 = torch.Tensor(df1)
-            # df2 = torch.Tensor(df2)
+            #df1 = torch.Tensor(df1)
+            #df2 = torch.Tensor(df2)
             
             if cosine:
                     dists = cosine_similarity(df1, df2)
@@ -150,14 +144,16 @@ for nocase, (data1, data2, ground_file, sep, dir, cols) in enumerate(cases):
             
             del dists
 
+            # print((nocase, nocol, vec, recall, precision, f1, matching_time))
+            #scores2.append((nocase, nocol, vec, q, recall, precision, f1, matching_time))
             scores2.append((nocase, nocol, vec, recall, precision, f1, matching_time, len(results), delta))
+            #break
+        #break
+    #break
 
 results = pd.DataFrame(scores2, columns=['Case', 'Columns', 'Vectorizer', 'Recall', 'Precision', 'F1', 'Matching Time',
                                          '#Results', 'Delta'
                                          ])
-if cosine:
-        results.to_csv('../logs/matching_unsupervised_cosine.csv', header=True, index=False)
-else:
-        results.to_csv('../logs/matching_unsupervised_euclidean.csv', header=True, index=False)
+# #results = pd.DataFrame(scores2, columns=['Case', 'Columns', 'Vectorizer', 'Limit', 'Recall', 'Precision', 'F1', 'Matching Time'])    
 
-
+results.to_csv(log_file, header=True, index=False)

@@ -68,14 +68,14 @@ def create_embeddings(text, vectorizer, log, log_file, output_path, output_index
        vectors = []
        for nos, sentence in enumerate(text):        
            if nos % 1000 == 0:
-                print(f'\r\t {nos}/{len(text2)}', end='')                     
+                print(f'\r\t {nos}/{len(text)}', end='')                     
            vectors.append(voc[sentence])
        vectors = np.array(vectors)
        vect_time = time()-vect_time
        
        df = pd.DataFrame(vectors)
        df.index = output_index
-       df.to_csv(output_path, index=True, header=False)       
+       df.to_csv(output_path, index=True, header=False)      
    
    elif vectorizer in ['bert', 'distilbert', 'roberta', 'xlnet', 'albert']:
        b = 10
@@ -125,14 +125,17 @@ def create_embeddings(text, vectorizer, log, log_file, output_path, output_index
        b = 500
        init_time = time()
        device = torch.device('cuda')
+       #device = torch.device('cpu')
        if vectorizer == 'smpnet':
            model = SentenceTransformer('all-mpnet-base-v2', device=device)
        elif vectorizer == 'st5':
-           model = SentenceTransformer('gtr-t5-large', device=device)
+           model = SentenceTransformer('gtr-t5-base', device=device)
+           #model = SentenceTransformer('gtr-t5-large', device=device)           
        elif vectorizer == 'sdistilroberta':
            model = SentenceTransformer('all-distilroberta-v1', device=device)
        elif vectorizer == 'sminilm':
-           model = SentenceTransformer('all-MiniLM-L12-v2', device=device)      
+           model = SentenceTransformer('all-MiniLM-L6-v2', device=device)
+           #model = SentenceTransformer('all-MiniLM-L12-v2', device=device)                       
        elif vectorizer == 'glove':
            model = SentenceTransformer('average_word_embeddings_glove.6B.300d', device=device)
        init_time = time() - init_time

@@ -1,15 +1,16 @@
+import os
 import pandas as pd
 import torch
+import matplotlib.pyplot as plt
 from scipy.spatial.distance import cdist
 from time import time
+from matplotlib.patches import Patch
 import faiss
 import hnswlib
 import numpy as np
-import sys
 from utils import vectorizers
+import sys
 
-
-# ## Nearest-Neighbor Search
 
 def topk(x, k):
     out = []
@@ -96,11 +97,9 @@ def calc_precision(true, preds):
 
 # # Start NNS Euclidean - Synthetic
 
-emb_dir = '/mnt/data/entity_matching_embeddings/big'
-if len(sys.argv) > 1:
-    emb_dir = sys.argv[1]
-
-#ks = [1, 5, 10]
+data_dir = sys.argv[1]
+emb_dir = sys.argv[2]
+log_file = sys.argv[3] + 'blocking_euclidean_synthetic.csv'
 ks = [10]
 gpu = True
 
@@ -112,7 +111,8 @@ nocol, col, sep = 2, 'aggregated', "|"
 batch_size = 5000
 
 i=0
-with open('../logs/blocking_recall_euclidean_big.csv', 'w') as o:
+os.makedirs(os.path.dirname(log_file), exist_ok=True)
+with open(log_file, 'w') as o:
         o.write('Case,Columns,Vectorizer,k,Direction,Exact,Recall,Precision,Time\n')
         for nocase, file in enumerate(files):
             
@@ -121,7 +121,7 @@ with open('../logs/blocking_recall_euclidean_big.csv', 'w') as o:
             print(name)
             
             
-            ground_file = '../data/big/ground_truths/{}duplicates.csv'.format(name)
+            ground_file = '{}{}duplicates.csv'.format(data_dir, name)
             ground_df = pd.read_csv(ground_file, sep=sep)
             ground_results = set(ground_df.apply(lambda x: (x[0], x[1]), axis=1).values)
             
@@ -132,32 +132,6 @@ with open('../logs/blocking_recall_euclidean_big.csv', 'w') as o:
                 
                 for k in ks:
                     
-                    #exact - NNS
-                    t1 = time()
-                    #print()
-                    
-                    no_batches = df.shape[0] // batch_size
-                    offset = 0
-                    results = []
-                    for i in range(no_batches):
-                        temp_df = df[offset: offset + batch_size]
-                        #rest_df = df[offset:]
-                        temp_results = find_exact_nns(temp_df, df, k, offset, gpu)
-                        #print(i, len(temp_results))
-                        offset += batch_size
-                        results += temp_results
-                    
-                    results = set(results)
-                    #print(len(results))
-                    
-                    t2 = time()
-                    
-
-                    recall = calc_recall(ground_results, results)
-                    precision = calc_precision(ground_results, results)
-                    #scores2.append((nocase, nocol, vec, k, 'i2q', 'exact', recall, precision, t2-t1))
-                    o.write('{},{},{},{},{},{},{},{},{},{}\n'.format(i, nocase, nocol, vec, k, 'i2q', 'exact', recall, precision, t2-t1))
-
                     #approx - NNS
                     t1 = time()
                     results = find_approx_nns(df, df, k, gpu)

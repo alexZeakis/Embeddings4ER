@@ -132,28 +132,28 @@ class InputFeatures(object):
 class DeepMatcherProcessor(object):
     """Processor for preprocessed DeepMatcher data sets (abt_buy, company, etc.)"""
 
-    def get_train_examples(self, data_dir):
+    def get_train_examples(self, data_name):
         """See base class."""
         return self._create_examples(
-            self._read_tsv(os.path.join(data_dir, "train.csv")), 
-            self._read_tsv(os.path.join(data_dir, "tableA.csv")),
-            self._read_tsv(os.path.join(data_dir, "tableB.csv")),
+            self._read_tsv(os.path.join(data_name, "train.csv")), 
+            self._read_tsv(os.path.join(data_name, "tableA.csv")),
+            self._read_tsv(os.path.join(data_name, "tableB.csv")),
             "train")
 
-    def get_dev_examples(self, data_dir):
+    def get_dev_examples(self, data_name):
         """See base class."""
         return self._create_examples(
-            self._read_tsv(os.path.join(data_dir, "valid.csv")),
-            self._read_tsv(os.path.join(data_dir, "tableA.csv")),
-            self._read_tsv(os.path.join(data_dir, "tableB.csv")),
+            self._read_tsv(os.path.join(data_name, "valid.csv")),
+            self._read_tsv(os.path.join(data_name, "tableA.csv")),
+            self._read_tsv(os.path.join(data_name, "tableB.csv")),
             "dev")
 
-    def get_test_examples(self, data_dir):
+    def get_test_examples(self, data_name):
         """See base class."""
         return self._create_examples(
-            self._read_tsv(os.path.join(data_dir, "test.csv")),
-            self._read_tsv(os.path.join(data_dir, "tableA.csv")),
-            self._read_tsv(os.path.join(data_dir, "tableB.csv")),
+            self._read_tsv(os.path.join(data_name, "test.csv")),
+            self._read_tsv(os.path.join(data_name, "tableA.csv")),
+            self._read_tsv(os.path.join(data_name, "tableB.csv")),
             "test")
 
     def get_labels(self):
@@ -387,6 +387,7 @@ def convert_examples_to_features(examples, label_list, max_seq_length,
         # used as as the "sentence vector". Note that this only makes sense because
         # the entire model is fine-tuned.
         tokens = tokens_a + [sep_token]
+        
         if sep_token_extra:
             # roberta uses an extra separator b/w pairs of sentences
             tokens += [sep_token]
@@ -518,8 +519,8 @@ class Evaluation:
 
 class Config():
     # DATA_PREFIX = "data"
-    DATA_PREFIX = "../data/labeled"
-    EXPERIMENT_PREFIX = "../logs/supervised_experiments"
+    # DATA_PREFIX = "../data/labeled"
+    # EXPERIMENT_PREFIX = "../logs/supervised_experiments"
 
     MODEL_CLASSES = {
         'bert': (BertConfig, BertForSequenceClassification, BertTokenizer),
@@ -531,6 +532,7 @@ class Config():
         'distilbert': (DistilBertConfig, DistilBertForSequenceClassification, DistilBertTokenizer),
         'sdistilroberta': (None, AutoModelForSequenceClassification, AutoTokenizer),
         #'st5': (None, AutoTokenizer, T5ForConditionalGeneration),
+        'st5': (None, T5ForConditionalGeneration, AutoTokenizer),
         'sminilm': (None, AutoModelForSequenceClassification, AutoTokenizer),
         'smpnet': (None, AutoModelForSequenceClassification, AutoTokenizer),
         #'glove': (None, AutoModelForSequenceClassification, AutoTokenizer),        
@@ -548,7 +550,10 @@ def read_arguments_train():
     parser = argparse.ArgumentParser(description='Run training with following arguments')
 
     parser.add_argument('--data_dir', default=None, type=str, required=True)
-    parser.add_argument('--data_processor', default=None, type=str, required=True)
+    parser.add_argument('--exp_dir', default=None, type=str, required=True)
+    parser.add_argument('--log_dir', default=None, type=str, required=True)
+    parser.add_argument('--data_name', default=None, type=str, required=True)
+    #parser.add_argument('--data_processor', default=None, type=str, required=True)
     parser.add_argument('--model_name_or_path', default="pre_trained_model/bert-base-uncased", type=str, required=True)
     parser.add_argument('--model_type', default='bert', type=str)
     parser.add_argument('--do_lower_case', action='store_true', default=True)
@@ -567,33 +572,8 @@ def read_arguments_train():
 
     args = parser.parse_args()
 
-    args.data_path = os.path.join(Config.DATA_PREFIX, args.data_dir)
-    args.model_output_dir = Config.EXPERIMENT_PREFIX
-
-    logging.info("*** parsed configuration from command line and combine with constants ***")
-
-    for argument in vars(args):
-        logging.info("argument: {}={}".format(argument, getattr(args, argument)))
-
-    return args
-
-
-def read_arguments_prediction():
-    parser = argparse.ArgumentParser(description='Run testing with the following arguments')
-
-    parser.add_argument('--trained_model_for_prediction', action="store", required=True, type=str)
-    parser.add_argument('--data_dir', default=None, type=str, required=True)
-    parser.add_argument('--data_processor', default=None, type=str, required=True)
-    parser.add_argument('--do_lower_case', action='store_true', default=True)
-    parser.add_argument('--max_seq_length', default=128, type=int)
-    parser.add_argument('--test_batch_size', default=8, type=int)
-
-    parser.add_argument('--seed', default=42, type=int)
-
-    args = parser.parse_args()
-
-    args.data_path = os.path.join(Config.DATA_PREFIX, args.data_dir)
-    args.model_output_dir = Config.EXPERIMENT_PREFIX
+    args.data_path = os.path.join(args.data_dir, args.data_name)
+    args.model_output_dir = args.exp_dir
 
     logging.info("*** parsed configuration from command line and combine with constants ***")
 

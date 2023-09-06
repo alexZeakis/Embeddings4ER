@@ -1,0 +1,7 @@
+**/__pycache__/
+
+legacy/*
+plots/*
+
+logs/supervised_experiments/*
+jupyter/.ipynb_checkpoints/

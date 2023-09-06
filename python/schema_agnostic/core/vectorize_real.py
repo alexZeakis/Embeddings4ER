@@ -2,14 +2,24 @@
 import os
 import pandas as pd
 from vectorization import create_embeddings
+from utils import vectorizers
 import sys
-from utils import vectorizers, separators
 
-input_dir = '../../data/real/'
-output_dir = '/mnt/data/entity_matching_embeddings/real'
-if len(sys.argv) > 1:
-    output_dir = sys.argv[1]
-log_file = '../logs/vectorization_real.txt'
+separators = {
+    'D1(rest)': "|",
+    'D2(abt-buy)': "|",
+    'D3(amazon-gp)': "#",
+    'D4(dblp-acm)': "%",
+    'D5_D6_D7(imdb-tmdb)': "|",
+    'D8(walmart-amazon)': "|",
+    'D9(dblp-scholar)': ">",
+    'D10(movies)': "|"
+    }
+
+
+input_dir = sys.argv[1]
+output_dir = sys.argv[2]
+log_file = sys.argv[3] + 'vectorization_real.txt'
 
 if __name__ == '__main__':
     
@@ -17,7 +27,7 @@ if __name__ == '__main__':
     files = [(dir, file)  for dir in dirs
              for file in os.listdir(input_dir+dir) if 'gt' not in file]
     files = [file for file in files if 'gt' not in file]
-    cols = [0, 1, -1]
+    cols = [-1]
     
     # print(files)
     
@@ -46,6 +56,9 @@ if __name__ == '__main__':
                 colname2 = colname.replace('/', '')
                 path2 = path.replace(input_dir, output_dir)
                 path2 = path2.replace('.csv', f'_{colname2}_{vectorizer}.csv')
+                
+                os.makedirs(os.path.dirname(path2), exist_ok=True)
+                os.makedirs(os.path.dirname(log_file), exist_ok=True)
                 
                 log = {}
                 log['dir'] = dir

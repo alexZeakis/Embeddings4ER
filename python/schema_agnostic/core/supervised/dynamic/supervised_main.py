@@ -12,10 +12,10 @@ from time import time
 setup_logging()
 
 
-def create_experiment_folder(model_output_dir: str, model_type: str, data_dir: str):
+def create_experiment_folder(model_output_dir: str, model_type: str, data_name: str):
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-    experiment_name = "{}__{}__{}".format(data_dir.upper(), model_type.upper(), timestamp)
+    experiment_name = "{}__{}__{}".format(data_name.upper(), model_type.upper(), timestamp)
 
     output_path = os.path.join(model_output_dir, experiment_name)
     os.makedirs(output_path, exist_ok=True)
@@ -26,7 +26,7 @@ def create_experiment_folder(model_output_dir: str, model_type: str, data_dir: s
 if __name__ == "__main__":
     args = read_arguments_train()
 
-    exp_name = create_experiment_folder(args.model_output_dir, args.model_type, args.data_dir)
+    exp_name = create_experiment_folder(args.model_output_dir, args.model_type, args.data_name)
     
     write_config_to_file(args, args.model_output_dir, exp_name)
     
@@ -130,9 +130,11 @@ if __name__ == "__main__":
     keys = ['precision', 'recall', 'fbeta_score', 'support']
     prfs = {f'class_{no}': {key: float(prfs[nok][no]) for nok, key in enumerate(keys)} for no in range(2)}
     
-    with open('../logs/matching_supervised.txt', 'a') as fout:
+    log_file = args.log_dir + 'matching_supervised_dynamic.txt'
+    os.makedirs(os.path.dirname(log_file), exist_ok=True)
+    with open(log_file, 'a') as fout:
         scores = {'simple_accuracy': simple_accuracy, 'f1': f1, 'model_type': args.model_type,
-         'data_dir': args.data_dir, 'training_time': training_time, 'testing_time': testing_time, 'prfs': prfs}
+         'data_name': args.data_name, 'training_time': training_time, 'testing_time': testing_time, 'prfs': prfs}
         fout.write(json.dumps(scores)+"\n")
     
  

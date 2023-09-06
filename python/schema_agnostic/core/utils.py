@@ -1,3 +1,6 @@
+import pandas as pd
+import torch
+
 vectorizers = ['word2vec', 'fasttext', 'glove',
                'bert', 'distilbert', 'roberta', 'xlnet', 'albert', 
                'smpnet', 'st5', 'sdistilroberta', 'sminilm']
@@ -32,14 +35,16 @@ cases = [
         ('imdb', 'dbpedia', 'gtImDb', "|", 'D10(movies)', 
              [('title', 'title'), ('starring', 'actor name'), ('aggregate value', 'aggregate value')]),
         ]
+pd.DataFrame(cases)
 
-separators = {
-    'D1(rest)': "|",
-    'D2(abt-buy)': "|",
-    'D3(amazon-gp)': "#",
-    'D4(dblp-acm)': "%",
-    'D5_D6_D7(imdb-tmdb)': "|",
-    'D8(walmart-amazon)': "|",
-    'D9(dblp-scholar)': ">",
-    'D10(movies)': "|"
-    }
+
+def cosine_similarity(a, b, eps=1e-8):
+    """
+    added eps for numerical stability
+    """
+    a_n, b_n = a.norm(dim=1)[:, None], b.norm(dim=1)[:, None]
+    a_norm = a / torch.clamp(a_n, min=eps)
+    b_norm = b / torch.clamp(b_n, min=eps)
+    sim_mt = torch.mm(a_norm, b_norm.transpose(0, 1))
+    return sim_mt
+

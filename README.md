@@ -21,44 +21,25 @@ This repository contains the code, datasets and results of a thorough experiment
 
 ## Experiment reproducibility
 
-### Vectorization
+### Schema-Agnostic
 
-- For vectorization on real datasets, please run:
-```sh
-python vectorize_real.py <output_dir>
-```
+For the core experiments run on schema-agnostic settings and referenced in the original paper,
+please visit [this link](https://github.com/alexZeakis/Embeddings4ER/tree/main/python/schema_agnostic/core/).
 
-- For vectorization on synthetic datasets, please run:
-```sh
-python vectorize_synthetic.py <output_dir>
-```
+For the extended experiments run on schema-agnostic settings,
+please visit [this link](https://github.com/alexZeakis/Embeddings4ER/tree/main/python/schema_agnostic/extended/).
 
-### Blocking
+For the core experiments run on schema-based settings,
+please visit [this link](https://github.com/alexZeakis/Embeddings4ER/tree/main/python/schema_based/core/).
 
-- For blocking on real datasets, please run:
-```sh
-python blocking_real.py <input_dir>
-```
+For the baseline experiments run on schema-agnostic settings,
+please visit [this link](https://github.com/alexZeakis/Embeddings4ER/tree/main/python/baseline/).
 
-- For blocking on synthetic datasets, please run:
-```sh
-python blocking_synthetic.py <input_dir>
-```
 
-### Matching
 
-- For unsupervised matching, please run:
-```sh
-python matching_unsupervised.py <input_dir>
-```
-
-- For supervised matching, please run:
-```sh
-./matching_supervised.sh
-```
 
 ### Datasets
-Datasets are not currently in this repository, they can be downloaded externally [here](https://zenodo.org/record/6950980).
+Datasets are not currently in this repository, they can be downloaded externally [here]().
 
 ## Visualizations
 

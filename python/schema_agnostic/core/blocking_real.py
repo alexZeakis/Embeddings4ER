@@ -1,16 +1,17 @@
+import os
 import pandas as pd
 import torch
+import matplotlib.pyplot as plt
 from scipy.spatial.distance import cdist
 from time import time
+from matplotlib.patches import Patch
 import faiss
 import hnswlib
 import numpy as np
 import sys
-from utils import vectorizers, cases
+from utils import cases, vectorizers
 
 
-
-# ## Nearest-Neighbor Search
 
 def topk(x, k):
     out = []
@@ -21,8 +22,8 @@ def topk(x, k):
 
 def find_exact_nns(tensor1, tensor2, k, gpu=False):
     if gpu:
-        tensor11 = torch.Tensor(tensor1)
-        tensor22 = torch.Tensor(tensor2)
+        tensor11 = torch.Tensor(tensor1).cuda()
+        tensor22 = torch.Tensor(tensor2).cuda()
         
         dists = torch.cdist(tensor11, tensor22, p=2)
 
@@ -85,10 +86,12 @@ def calc_precision(true, preds):
 
 # # Start NNS euclidean - Real
 
-emb_dir = '/mnt/data/entity_matching_embeddings/real/'
-if len(sys.argv) > 1:
-    emb_dir = sys.argv[1]
+
+data_dir = sys.argv[1]
+emb_dir = sys.argv[2]
+log_file = sys.argv[3] + 'blocking_euclidean_real.csv'
 ks = [1, 5, 10]
+
 gpu = True
 
 scores2 = []
@@ -100,24 +103,27 @@ for nocase, (data1, data2, ground_file, sep, dir, cols) in enumerate(cases):
     print(nocase)
     #print(noc, data1, data2, ground_file, sep, dir, cols)
     
-    ground_file = '../data/real/{}/{}.csv'.format(dir, ground_file)
+    ground_file = '{}/{}/{}.csv'.format(data_dir, dir, ground_file)
     ground_df = pd.read_csv(ground_file, sep=sep)
     ground_results = set(ground_df.apply(lambda x: (x[0], x[1]), axis=1).values)
     
     for nocol, (col1, col2) in enumerate(cols):
+        if nocol != 2:
+            continue
         for vec in vectorizers:
             file1 = '{}{}/{}_{}_{}.csv'.format(emb_dir, dir, data1, col1, vec)
             file2 = '{}{}/{}_{}_{}.csv'.format(emb_dir, dir, data2, col2, vec)
             
             df1 = pd.read_csv(file1, header=None, index_col=0).values
             df2 = pd.read_csv(file2, header=None, index_col=0).values
-            #if gpu:
-            #    df1 = torch.Tensor(df1)
-            #    df2 = torch.Tensor(df2)
+            if gpu:
+                df1 = torch.Tensor(df1)
+                df2 = torch.Tensor(df2)
             
             for k in ks:
                 print('\t{} {} {}\r'.format(nocol, vec, k), end='')
                 
+                '''
                 #exact - query2input
                 t1 = time()
                 results = find_exact_nns(df1, df2, k, gpu)
@@ -125,7 +131,8 @@ for nocase, (data1, data2, ground_file, sep, dir, cols) in enumerate(cases):
                 recall = calc_recall(ground_results, results)
                 precision = calc_precision(ground_results, results)
                 scores2.append((nocase, nocol, vec, k, 'q2i', 'exact', recall, precision, t2-t1))
-                
+                '''
+                                
                 #exact - input2query
                 t1 = time()
                 results = find_exact_nns(df2, df1, k, gpu)
@@ -135,6 +142,7 @@ for nocase, (data1, data2, ground_file, sep, dir, cols) in enumerate(cases):
                 precision = calc_precision(ground_results, results)
                 scores2.append((nocase, nocol, vec, k, 'i2q', 'exact', recall, precision, t2-t1))
                 
+                '''                
                 #approx - query2input
                 t1 = time()
                 results = find_approx_nns(df1, df2, k, gpu)
@@ -151,9 +159,15 @@ for nocase, (data1, data2, ground_file, sep, dir, cols) in enumerate(cases):
                 recall = calc_recall(ground_results, results)
                 precision = calc_precision(ground_results, results)
                 scores2.append((nocase, nocol, vec, k, 'i2q', 'approx', recall, precision, t2-t1))
-
+                '''
+                #scores2.append((nocase, nocol, vec, k, rec_qi, rec_iq))
+            #break
+        #break
+    break
+    
+os.makedirs(os.path.dirname(log_file), exist_ok=True)
 results = pd.DataFrame(scores2, columns=['Case', 'Columns', 'Vectorizer', 'k', 'Direction',
                                          'Exact', 'Recall', 'Precision', 'Time'])    
-results.to_csv('../logs/blocking_recall_euclidean_real.csv', header=True, index=True)
+results.to_csv(log_file, header=True, index=True)
 results
 
