@@ -21,17 +21,20 @@ This repository contains the code, datasets and results of a thorough experiment
 
 ## Experiment reproducibility
 
-### Schema-Agnostic
+### Schema-Agnostic - Core
 
 For the core experiments run on schema-agnostic settings and referenced in the original paper,
 please visit [this link](https://github.com/alexZeakis/Embeddings4ER/tree/main/python/schema_agnostic/core/).
 
+### Schema-Agnostic - Extended
 For the extended experiments run on schema-agnostic settings,
 please visit [this link](https://github.com/alexZeakis/Embeddings4ER/tree/main/python/schema_agnostic/extended/).
 
+### Schema-Based - Core
 For the core experiments run on schema-based settings,
 please visit [this link](https://github.com/alexZeakis/Embeddings4ER/tree/main/python/schema_based/core/).
 
+### Baseline
 For the baseline experiments run on schema-agnostic settings,
 please visit [this link](https://github.com/alexZeakis/Embeddings4ER/tree/main/python/baseline/).
 

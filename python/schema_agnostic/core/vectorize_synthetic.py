@@ -7,7 +7,8 @@ from utils import vectorizers
 
 input_dir = sys.argv[1]
 output_dir = sys.argv[2]
-log_file = sys.argv[3] + 'vectorization_synthetic.txt'        
+log_file = sys.argv[3] + 'vectorization_synthetic.txt'    
+static_dir = sys.argv[4]    
 
 files = ['10K.csv', '50K.csv', '100K.csv', '200K.csv', '300K.csv', '1M.csv', '2M.csv']
 
@@ -36,7 +37,7 @@ for file in files:
                           'stats': df.apply(len).describe().to_dict()}
                 
         embeddings = create_embeddings(text, vectorizer, log, log_file,
-                                       path2, df.index)
+                                       path2, df.index, static_dir)
         print()
         #break
     #break

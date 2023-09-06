@@ -2,8 +2,8 @@
 import os
 import pandas as pd
 from vectorization import create_embeddings
-from utils import vectorizers
 import sys
+from utils import vectorizers
 
 separators = {
     'D1(rest)': "|",
@@ -16,11 +16,11 @@ separators = {
     'D10(movies)': "|"
     }
 
-
 input_dir = sys.argv[1]
 output_dir = sys.argv[2]
-log_file = sys.argv[3] + 'vectorization_real.txt'
+log_file = sys.argv[3] + 'vectorization.txt'
 static_dir = sys.argv[4]
+
 
 if __name__ == '__main__':
     
@@ -28,7 +28,8 @@ if __name__ == '__main__':
     files = [(dir, file)  for dir in dirs
              for file in os.listdir(input_dir+dir) if 'gt' not in file]
     files = [file for file in files if 'gt' not in file]
-    cols = [-1]
+    #cols = [0, 1, -1]
+    cols = [0, 1]
     
     # print(files)
     
