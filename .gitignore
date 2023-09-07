@@ -1,5 +1,8 @@
 **/__pycache__/
 
+python/baseline/ZeroER/datasets/*
+python/baseline/Sparkly/pylucene-9.7.0/*
+
 legacy/*
 plots/*
 
