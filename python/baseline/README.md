@@ -1,50 +1,53 @@
-* For Vectorization:
-    * For Vectorization on Real Data, run:
-    ```sh
-    python vectorize_real.py <raw_data_dir> <emb_data_dir> <log_dir> <static_dir>
-    ```
-    * For Vectorization on Synthetic Data, run:
-    ```sh
-    python vectorize_synthetic.py <raw_data_dir> <emb_data_dir> <log_dir>  <static_dir>
-    ```
+* DeepBlocker:
+	* In configurations.py, set the path of fasttext model, i.e. the .bin file.
+	* To execute DeepBlocker, run:
+      ```sh
+      python run_DeepBlocker.py <raw_data_dir> <log_dir>
+      ```
+	* More information can be found [here](https://github.com/qcri/DeepBlocker).
 
-* For Blocking: 
-    * For Blocking on Real Data, run:
-    ```sh
-    python blocking_real.py <raw_data_dir> <emb_data_dir> <log_dir>
-    ```
-    * For Blocking on Synthetic Data, run:
-    ```sh
-    python blocking_synthetic.py <raw_data_dir> <emb_data_dir> <log_dir>
-    ```
+* JedAI:
+	* Install JedAI from PyPI:
+	 ```
+	 pip install pyjedai
+	 ```
+	* To execute JedAI, run:
+      ```sh
+      python run_jedai.py <raw_data_dir> <log_dir>
+      ```
+	* More information can be found [here](https://github.com/AI-team-UoA/pyJedAI).
+	
+* Sparkly:
+	* Download PyLucene from [here](https://lucene.apache.org/pylucene/) and make the appropriate changes in Makefile. We have used version 9.7.0.
+	* Build the Docker image by 
+	 ```
+	 docker build -t sparkly .
+	 ```
+	* To run the Sparkly container, run:
+      ```sh
+      docker run -v <log_dir>:/usr/src/sparkly/logs -v <raw_data_dir>:/usr/src/sparkly/data --name sparkly sparkly
+      ```
+	* More information can be found [here](https://github.com/anhaidgroup/sparkly).	
+	
+* TokenJoin:
+	* Install TokenJoin from PyPI:
+	 ```
+	 pip install pytokenjoin
+	 ```
+	* To execute TokenJoin, run:
+      ```sh
+      python run_tjk.py <raw_data_dir> <log_dir>
+      ```
+	* More information can be found [here](https://github.com/alexZeakis/pyTokenJoin).
 
-* For Matching:
-    * For Unsupervised Matching:
-        * For Unsupervised Matching without blocking, run:
-        ```sh
-        python matching_unsupervised.py <raw_data_dir> <emb_data_dir> <log_dir>
-        ```
-        * For Unsupervised Matching with blocking, run:
-        ```sh
-        python matching_unsupervised_block.py <raw_data_dir> <emb_data_dir> <log_dir>
-        ```
-
-    * For Supervised Matching:
-        * For Supervised Matching on static models:
-            * First install DeepMatcher:
-            ```
-            pip install deepmatcher
-            ```
-            * To transform labeled data, run:
-            ```
-            python transform_labeled.py <data_dir_input> <data_dir_output>
-            ```
-            * To run DeepMatcher, run:
-            ```
-            ./run_dm.sh <data_dir> <log_dir> <model_dir>
-            ```
-            
-        * For Supervised Matching on dynamic models, run:
-        ```sh
-        ./matching_supervised.sh <data_dir> <log_dir> <exp_dir>
-        ```
+* ZeroER:
+    * ZeroER needs to make intermediate files for each case, thus we copy the original data directory into the local directory under the name datasets.
+	* Create a conda environment by:
+	```
+	conda env create -f environment.yml
+	conda activate ZeroER
+	```
+	* To run ZeroER, run:
+	```
+	./run.sh <log_dir>
+    ```
