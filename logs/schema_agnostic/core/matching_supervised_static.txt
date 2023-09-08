@@ -1,0 +1,10 @@
+{"model_type": "glove", "data_name": "dirty_amazon_itunes", "training_time": 101.44615077972412, "testing_time": 0.5756003856658936, "f1": 61.224491119384766}
+{"model_type": "glove", "data_name": "abt_buy", "training_time": 846.9739847183228, "testing_time": 4.803001642227173, "f1": 27.24935531616211}
+{"model_type": "glove", "data_name": "dirty_walmart_amazon", "training_time": 876.9397914409637, "testing_time": 4.6635613441467285, "f1": 24.5}
+{"model_type": "glove", "data_name": "dirty_dblp_acm", "training_time": 1157.1865646839142, "testing_time": 6.865811109542847, "f1": 94.96080780029297}
+{"model_type": "glove", "data_name": "dirty_dblp_scholar", "training_time": 2534.2868616580963, "testing_time": 14.666336059570312, "f1": 90.69438171386719}
+{"model_type": "fasttext", "data_name": "dirty_amazon_itunes", "training_time": 100.90302801132202, "testing_time": 0.5592422485351562, "f1": 72.0}
+{"model_type": "fasttext", "data_name": "abt_buy", "training_time": 851.8971269130707, "testing_time": 4.828041076660156, "f1": 62.6702995300293}
+{"model_type": "fasttext", "data_name": "dirty_walmart_amazon", "training_time": 882.0998601913452, "testing_time": 4.70580792427063, "f1": 41.543025970458984}
+{"model_type": "fasttext", "data_name": "dirty_dblp_acm", "training_time": 1155.0411994457245, "testing_time": 6.876825571060181, "f1": 96.96288299560547}
+{"model_type": "fasttext", "data_name": "dirty_dblp_scholar", "training_time": 2527.334590435028, "testing_time": 14.755311250686646, "f1": 92.46802520751953}

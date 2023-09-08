@@ -47,7 +47,7 @@ log_file = sys.argv[3] + 'complementarity.txt'
 
 os.makedirs(os.path.dirname(log_file), exist_ok=True)
 
-ks = [10]
+ks = [1, 10]
 gpu = True
 
 scores2 = []
@@ -87,7 +87,7 @@ for nocase, (data1, data2, ground_file, sep, dir, cols) in enumerate(cases):
                 t2 = time()
                 results = [(y,x) for x,y in results] #reverse the input to query results to become (q_id, in_id)
                 
-                log = {'vec': vec, 'case':nocase, 'ranks': results}
+                log = {'vec': vec, 'case':nocase, 'ranks': results, 'k': k}
                 f.write(json.dumps(log)+'\n')
                 
                 #scores2.append((nocase, nocol, vec, k, rec_qi, rec_iq))

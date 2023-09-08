@@ -60,7 +60,12 @@ def line_plot(df, col_columns, col_values, col_index, legend=False, ax=None, tit
     if legend:
         return plt.legend(bbox_to_anchor=(1.05, 1.05))
         
-def heatmap_plot(df, col_columns, col_values, col_index, legend=False, order=None, ylabel=None, xlabel=""):
+def heatmap_plot(df, col_columns, col_values, col_index, legend=False, order=None, ylabel=None, xlabel="", reverse_color=False):
+    if reverse_color:
+        cmap = sns.cm.rocket_r
+    else:
+        cmap = sns.cm.rocket
+
     df2 = df.pivot(columns=col_columns, values=col_values, index=col_index)
     if order is not None:
         df2 = df2[order]
@@ -69,7 +74,7 @@ def heatmap_plot(df, col_columns, col_values, col_index, legend=False, order=Non
     df2 = df2.loc[vorder]
     df2 ['Total'] = df2.apply(lambda x: x.mean(), axis=1)
     df2 = df2.rank(ascending=False, method='min')
-    ax = sns.heatmap(df2, annot=True, cbar=legend)
+    ax = sns.heatmap(df2, annot=True, cbar=legend, cmap = cmap)
     ax.set_ylabel(ylabel)
     ax.set_xlabel(xlabel)
     #ax.set_yticks(ax.get_yticks(), rotation=45
@@ -77,7 +82,12 @@ def heatmap_plot(df, col_columns, col_values, col_index, legend=False, order=Non
     ax.set_xticklabels(ax.get_xticklabels(), rotation=0)
     #plt.show()
     
-def corr_plot(df, col_columns, col_values, col_index, order=None, figsize=(10,10)):
+def corr_plot(df, col_columns, col_values, col_index, order=None, figsize=(10,10), reverse_color=False):
+    if reverse_color:
+        cmap = sns.cm.rocket_r
+    else:
+        cmap = sns.cm.rocket
+        
     df2 = df[[col_columns, col_values, col_index]]
     
     df2['Total'] = df2.apply(lambda x: (x[col_columns], x[col_values]), axis=1)
@@ -97,7 +107,7 @@ def corr_plot(df, col_columns, col_values, col_index, order=None, figsize=(10,10
 
     matrix = triu(pearsonr)
     fig, ax = plt.subplots(figsize=figsize)            
-    ax = sns.heatmap(pearsonr, annot=True, mask=matrix, ax=ax)
+    ax = sns.heatmap(pearsonr, annot=True, mask=matrix, ax=ax, cmap = cmap)
     ax.set_xticks(range(no), df2.index, rotation=0)
     ax.set_yticks(range(no), df2.index, rotation=0)    
     
@@ -107,3 +117,38 @@ vectorizers_order = ['word2vec', 'fasttext', 'glove',
                       ]
 
 vectorizers_order2 = ['WC', 'FT', 'GE', 'BT', 'AT', 'RA', 'DT', 'XT', 'ST', 'S5', 'SA', 'SM']
+
+case_order = [f'D{i+1}' for i in range(10)]
+
+import pandas as pd
+cases = [
+        ('rest1', 'rest2', 'gt', "|", 'D1(rest)',
+             [('http:www.okkam.orgontology_restaurant1.owl#name', 'http:www.okkam.orgontology_restaurant2.owl#name'),
+              ('http:www.okkam.orgontology_restaurant1.owl#phone_number', 'http:www.okkam.orgontology_restaurant2.owl#phone_number'),
+              ('aggregate value', 'aggregate value')]),
+        ('abt', 'buy', 'gt', "|", 'D2(abt-buy)',
+             [('name', 'name'), ('description', 'description'), ('aggregate value', 'aggregate value')]),
+        ('amazon', 'gp', 'gt', "#", 'D3(amazon-gp)',
+            [('title', 'title'), ('description', 'description'), ('aggregate value', 'aggregate value')]),
+        ('dblp', 'acm', 'gt', "%", 'D4(dblp-acm)', 
+            [('title', 'title'), ('authors', 'authors'), ('aggregate value', 'aggregate value')]),
+        ('imdb', 'tvdb', 'gtImTv', "|", 'D5_D6_D7(imdb-tmdb)',
+             [('https:www.scads.demovieBenchmarkontologytitle', 'https:www.scads.demovieBenchmarkontologytitle'),
+                 ('https:www.scads.demovieBenchmarkontologyname', 'https:www.scads.demovieBenchmarkontologyname'),
+                 ('aggregate value', 'aggregate value')]),
+        ('tmdb', 'tvdb', 'gtTmTv', "|", 'D5_D6_D7(imdb-tmdb)', 
+            [('https:www.scads.demovieBenchmarkontologytitle', 'https:www.scads.demovieBenchmarkontologytitle'),
+                 ('https:www.scads.demovieBenchmarkontologyname', 'https:www.scads.demovieBenchmarkontologyname'),
+                 ('aggregate value', 'aggregate value')]),
+        ('imdb', 'tmdb', 'gtImTm', "|", 'D5_D6_D7(imdb-tmdb)', 
+            [('https:www.scads.demovieBenchmarkontologytitle', 'https:www.scads.demovieBenchmarkontologytitle'),
+                 ('https:www.scads.demovieBenchmarkontologyname', 'https:www.scads.demovieBenchmarkontologyname'),
+                 ('aggregate value', 'aggregate value')]),
+        ('walmart', 'amazon', 'gt', "|", 'D8(walmart-amazon)', 
+             [('title', 'title'), ('modelno', 'modelno'), ('aggregate value', 'aggregate value')]),
+        ('dblp', 'scholar', 'gt', ">", 'D9(dblp-scholar)', 
+             [('title', 'title'), ('authors', 'authors'), ('aggregate value', 'aggregate value')]),
+        ('imdb', 'dbpedia', 'gtImDb', "|", 'D10(movies)', 
+             [('title', 'title'), ('starring', 'actor name'), ('aggregate value', 'aggregate value')]),
+        ]
+pd.DataFrame(cases)

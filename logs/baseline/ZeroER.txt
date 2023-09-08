@@ -1,4 +1,3 @@
-{"features": 0.07174921035766602, "zeroer": 5.145276308059692, "precision": 0.0, "recall": 0.0, "f1": 0.0, "dataset": "rest1_rest2"}
 {"features": 2.1199660301208496, "zeroer": 0.38341665267944336, "precision": 0.0, "recall": 0.0, "f1": 0.0, "dataset": "rest1_rest2"}
 {"features": 1727.5485026836395, "zeroer": 70.70223808288574, "precision": 0.8552971576227391, "recall": 0.31888246628131023, "f1": 0.4645614035087719, "dataset": "abt_buy"}
 {"features": 9595.276594161987, "zeroer": 113.19047594070435, "precision": 0.9661016949152542, "recall": 0.9739208633093526, "f1": 0.9699955217196596, "dataset": "dblp_acm"}

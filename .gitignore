@@ -1,5 +1,6 @@
 **/__pycache__/
 
+
 logs/schema_agnostic/extended/complementarity.txt
 
 python/baseline/ZeroER/datasets/*
@@ -7,6 +8,7 @@ python/baseline/Sparkly/pylucene-9.7.0/*
 
 legacy/*
 plots/*
+data/*
 
 logs/supervised_experiments/*
 jupyter/.ipynb_checkpoints/
