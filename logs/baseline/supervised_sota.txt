@@ -1,0 +1,10 @@
+{"data_name": "DSM1", "model_type": "DITTO", "f1": 0.893}
+{"data_name": "DSM2", "model_type": "DITTO", "f1": 0.957}
+{"data_name": "DSM3", "model_type": "DITTO", "f1": 0.990}
+{"data_name": "DSM4", "model_type": "DITTO", "f1": 0.958}
+{"data_name": "DSM5", "model_type": "DITTO", "f1": 0.857}
+{"data_name": "DSM1", "model_type": "DeepMatcher+", "f1": 0.628}
+{"data_name": "DSM2", "model_type": "DeepMatcher+", "f1": 0.794}
+{"data_name": "DSM3", "model_type": "DeepMatcher+", "f1": 0.981}
+{"data_name": "DSM4", "model_type": "DeepMatcher+", "f1": 0.938}
+{"data_name": "DSM5", "model_type": "DeepMatcher+", "f1": 0.538}
