@@ -29,8 +29,10 @@ train, validation, test = dm.data.process(
     train='train.csv',
     validation='valid.csv',
     test='test.csv',
-    embeddings=models[model_name][0],
-    embeddings_cache_path= model_dir+model_name+'/')
+    embeddings=models[model_name],
+    embeddings_cache_path= model_dir+model_name+'/',
+    auto_rebuild_cache=False, pca = False
+)
 
 model = dm.MatchingModel()
 train_time = time()
