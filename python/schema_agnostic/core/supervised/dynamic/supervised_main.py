@@ -106,7 +106,7 @@ if __name__ == "__main__":
     test_examples = processor.get_test_examples(args.data_path)
 
     logging.info("loaded {} test examples".format(len(test_examples)))
-    test_data_loader = load_data(eval_examples,
+    test_data_loader = load_data(test_examples,
                                  label_list,
                                  tokenizer,
                                  args.max_seq_length,
