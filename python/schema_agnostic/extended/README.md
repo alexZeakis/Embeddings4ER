@@ -3,11 +3,6 @@
     python blocking_k_range.py  <raw_data_dir> <emb_data_dir> <log_dir>
     ```
 
-* For finding the impact of Indexing in Blocking, run:
-    ```sh
-    python blocking_indexing.py  <raw_data_dir> <emb_data_dir> <log_dir>
-    ```
-
 * For finding the complementarity of models in Blocking, run:
     ```sh
     python blocking_complementarity.py  <raw_data_dir> <emb_data_dir> <log_dir>
