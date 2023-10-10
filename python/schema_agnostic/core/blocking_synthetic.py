@@ -1,10 +1,8 @@
 import os
 import pandas as pd
 import torch
-import matplotlib.pyplot as plt
 from scipy.spatial.distance import cdist
 from time import time
-from matplotlib.patches import Patch
 import faiss
 import hnswlib
 import numpy as np

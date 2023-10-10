@@ -1,3 +1,10 @@
+## Environment
+Most executions are placed within the same conda environment, called `vldb2023_ea_basic`. To create and activate it, run:
+```
+conda env create -f conda/vldb_ea_basic.yml
+conda activate vldb_ea_basic
+```
+
 * For Vectorization:
     * For Vectorization on Real Data, run:
     ```sh
@@ -31,10 +38,6 @@
 
     * For Supervised Matching:
         * For Supervised Matching on static models:
-            * First install DeepMatcher:
-            ```
-            pip install deepmatcher
-            ```
             * To transform labeled data, run:
             ```
             python transform_labeled.py <data_dir_input> <data_dir_output>

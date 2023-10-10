@@ -15,7 +15,6 @@ transformers.logging.set_verbosity_error()
 import torch
 
 from time import time
-import psutil
 import os
 import pandas as pd
 import json
@@ -157,18 +156,10 @@ def create_embeddings(text, vectorizer, log, log_file, output_path, output_index
                df.index = temp_index
                df.to_csv(o, index=True, header=False)
               
-   pid = os.getpid()
-   python_process = psutil.Process(pid)
-   process_memory = python_process.memory_info()
-   process_memory = {k: v for k, v in zip(process_memory._fields, process_memory)}
     
-   total_memory = psutil.virtual_memory()
-   total_memory = {k: v for k, v in zip(total_memory._fields, total_memory)}
 
    log['init_time'] = init_time   
    log['time'] = vect_time
-   log['memory'] = {'process': process_memory,
-                     'total': total_memory}
    log['dimensions'] = vectors.shape[1]
     
    with open(log_file, 'a') as f:

@@ -34,7 +34,7 @@ if __name__ == '__main__':
     
     
     for dir, file in files:
-        path = '{}/{}/{}'.format(input_dir, dir, file)
+        path = '{}{}/{}'.format(input_dir, dir, file)
         sep = separators[dir]
         df = pd.read_csv(path, sep=sep, index_col=0)
         print(dir, file, sep, df.shape)
@@ -56,8 +56,8 @@ if __name__ == '__main__':
 
                 colname2 = colname.replace('/', '')
                 path2 = path.replace(input_dir, output_dir)
-                path2 = path2.replace('.csv', f'_{colname2}_{vectorizer}.csv')
-                
+                path2 = path2.replace('.csv', f"_{colname2}_{vectorizer}.csv")
+
                 os.makedirs(os.path.dirname(path2), exist_ok=True)
                 os.makedirs(os.path.dirname(log_file), exist_ok=True)
                 
