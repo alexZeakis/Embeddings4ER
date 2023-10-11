@@ -8,11 +8,11 @@ conda activate vldb_ea_basic
 * For Vectorization:
     * For Vectorization on Real Data, run:
     ```sh
-    python vectorize_real.py <raw_data_dir> <emb_data_dir> <log_dir> <static_dir>
+    python vectorize_real.py <raw_data_dir> <emb_data_dir> <log_dir> <static_model_dir>
     ```
     * For Vectorization on Synthetic Data, run:
     ```sh
-    python vectorize_synthetic.py <raw_data_dir> <emb_data_dir> <log_dir>  <static_dir>
+    python vectorize_synthetic.py <raw_data_dir> <emb_data_dir> <log_dir>  <static_model_dir>
     ```
 
 * For Blocking: 
@@ -44,7 +44,7 @@ conda activate vldb_ea_basic
             ```
             * To run DeepMatcher, run:
             ```
-            ./run_dm.sh <data_dir> <log_dir> <model_dir>
+            ./run_dm.sh <data_dir> <log_dir> <static_model_dir>
             ```
             
         * For Supervised Matching on dynamic models, run:
