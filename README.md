@@ -44,6 +44,12 @@ please visit [this link](https://github.com/alexZeakis/Embeddings4ER/tree/main/p
 ### Datasets
 Datasets are not currently in this repository, they can be downloaded externally [here]().
 
+### Static Models
+For static models, please create a local directory with any given name, but inside create two directories:
+ - One called `fasttext/` and inside download the file found [here](https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.zip).
+ - One called `word2vec/` and inside download the file found [here](https://drive.google.com/u/0/uc?id=0B7XkCwpI5KDYNlNUTTlSS21pQmM&export=download).
+This outer directory will be used in various executions. More instructions on each page.
+
 ## Visualizations
 
 To produce all plots, please run the jupyter notebook found [here](https://github.com/alexZeakis/Embedings4ER/blob/main/jupyter/Full_Plots.ipynb).
