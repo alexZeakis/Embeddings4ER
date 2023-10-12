@@ -42,7 +42,7 @@ please visit [this link](https://github.com/alexZeakis/Embeddings4ER/tree/main/p
 
 
 ### Datasets
-Datasets are not currently in this repository, they can be downloaded externally [here]().
+Datasets are not currently in this repository, they can be downloaded externally [here](https://zenodo.org/record/8433873/files/data_ea.tar.gz).
 
 ### Static Models
 For static models, please create a local directory with any given name, but inside create two directories:
