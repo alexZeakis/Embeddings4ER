@@ -47,7 +47,8 @@ Datasets are not currently in this repository, they can be downloaded externally
 ### Static Models
 For static models, please create a local directory with any given name, but inside create two directories:
  - One called `fasttext/` and inside download the file found [here](https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.zip).
- - One called `word2vec/` and inside download the file found [here](https://drive.google.com/u/0/uc?id=0B7XkCwpI5KDYNlNUTTlSS21pQmM&export=download).
+ - One called `word2vec/` and inside download the file found [here](https://drive.google.com/u/0/uc?id=0B7XkCwpI5KDYNlNUTTlSS21pQmM&export=download). To download a GDrive file, one can use the tool [GDown](https://github.com/wkentaro/gdown), which is used like `wget` but for GDrive links. It can be installed via PyPI with `pip install gdown`.
+
 This outer directory will be used in various executions. More instructions on each page.
 
 ## Visualizations
