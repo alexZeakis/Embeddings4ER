@@ -1,4 +1,4 @@
-FASTTEXT_EMBEDDIG_PATH = "/mnt/data/entity_matching_embeddings/static_models/fasttext/wiki.en.bin"
+FASTTEXT_EMBEDDIG_PATH = "models/fasttext/wiki.en.bin"
 #Dimension of the word embeddings.
 EMB_DIMENSION_SIZE = 300
 #Embedding size of AutoEncoder embedding

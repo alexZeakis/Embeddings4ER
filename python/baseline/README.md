@@ -1,5 +1,4 @@
 * DeepBlocker:
-	* In configurations.py, set the path of fasttext model, i.e. the .bin file.
 	* To execute DeepBlocker, run:
       ```sh
       python run_DeepBlocker.py <raw_data_dir> <log_dir>
@@ -41,7 +40,10 @@
 	* More information can be found [here](https://github.com/alexZeakis/pyTokenJoin).
 
 * ZeroER:
-    * ZeroER needs to make intermediate files for each case, thus we copy the original data directory into the local directory under the name datasets.
+    * ZeroER needs to make intermediate files for each case, thus we copy the original data directory into the local directory, by running:
+        ```
+	./create_data.sh
+	```
 	* Create a conda environment by:
 	```
 	conda env create -f environment.yml

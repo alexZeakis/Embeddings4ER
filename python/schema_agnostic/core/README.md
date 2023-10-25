@@ -1,8 +1,8 @@
 ## Environment
 Most executions are placed within the same conda environment, called `vldb2023_ea_basic`. To create and activate it, run:
 ```
-conda env create -f conda/vldb_ea_basic.yml
-conda activate vldb_ea_basic
+conda env create -f conda/vldb23_ea_basic.yml
+conda activate vldb23_ea_basic
 ```
 
 * For Vectorization:
