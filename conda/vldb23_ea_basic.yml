@@ -1,4 +1,4 @@
-name: vldb23_ea_basic
+name: vldb23_ea_basicV2
 channels:
   - defaults
   - anaconda
