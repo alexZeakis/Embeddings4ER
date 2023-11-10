@@ -32,7 +32,8 @@ cd ..
 mkdir word2vec
 cd word2vec/
 pip install gdown
-gdown https://drive.google.com/u/0/uc?id=0B7XkCwpI5KDYNlNUTTlSS21pQmM&export=download
+#gdown https://drive.google.com/u/0/uc?id=0B7XkCwpI5KDYNlNUTTlSS21pQmM&export=download
+python ../../reproducibility/dl_word2vec.py
 apt-get install gunzip
 gunzip GoogleNews-vectors-negative300.bin.gz
 cd ../..
@@ -40,7 +41,8 @@ cd ../..
 #2. Experiments
 PREF="python/schema_agnostic/core/"
 #Remove existing logs to create new ones
-rm -r logs/
+#rm -r logs/
+mv logs/ or_logs/  # Change "rm -r logs/" to "mv logs/ or_logs/"
 
 ## 2.1 Vectorization
 ### 2.1.1 Vectorization on Real Data (*Exec 1a*)
@@ -79,15 +81,25 @@ cd ../../../../../
 python python/baseline/DeepBlocker/run_DeepBlocker.py data/real/ logs/baseline/
 
 ### 2.4.2 ZeroER
-cd python/baseline/ZeroER/
-conda env create -f environment.yml
-conda deactivate
-conda activate ZeroER
-./create_data.sh
-./run.sh ../../../logs/baseline/
-cd ../../../
+# Check if the first argument is "--zeroer"
+if [[ "$1" == "--zeroer" ]]; then
+  # 2.4.2 ZeroER
+  cd python/baseline/ZeroER/
+  conda env create -f environment.yml
+  conda deactivate
+  conda activate ZeroER
+  ./create_data.sh
+  ./run.sh ../../../logs/baseline/
+  cd ../../../
+else
+  # Copy the ZeroER.txt file from or_logs/baseline/ to logs/baseline/
+  cp or_logs/baseline/ZeroER.txt logs/baseline/
+fi
 
 # 3 Visualizations
+rsync -av --ignore-existing or_logs/baseline/ logs/baseline/
+rsync -av --ignore-existing or_logs/schema_agnostic/core/ logs/schema_agnostic/core/
+
 cd visualizations/
 python Schema-Agnostic-Core.py
 conda deactivate

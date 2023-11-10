@@ -62,11 +62,9 @@ with open(input_dir_sa + 'vectorization_real.txt') as f:
         line = json.loads(line)
         
         lines.append((line['dir'], line['vectorizer'], line['init_time'], line['time'], line['file'],
-                      line['column']['name'], line['memory']['process']['rss'],
-                      line['memory']['total']['used']))
+                      line['column']['name']))
     
-vec_df = pd.DataFrame(lines, columns=['Case', 'Vectorizer', 'Init Time', 'Total Time', 'File',
-                                        'Column', 'Memory Process', 'Memory Total'])
+vec_df = pd.DataFrame(lines, columns=['Case', 'Vectorizer', 'Init Time', 'Total Time', 'File', 'Column'])
 
 vec_df['Case'] = vec_df['Case'].apply(lambda x: x.split('(')[0])
 vec_df['Vectorizer'] = vec_df['Vectorizer'].apply(lambda x: x[0]+x[-1]).str.upper()
@@ -104,21 +102,6 @@ import statistics
 import pandas as pd
 
 base_stats = []
-with open(input_dir_bl + 'TokenJoin.txt') as f:
-    for line in f:
-        j = json.loads(line)
-        j['vec'] = 'TokenJoin'
-        base_stats.append(j)
-with open(input_dir_bl + 'JedAI.txt') as f:
-    for line in f:
-        j = json.loads(line)
-        j['vec'] = 'kNN-Join'
-        base_stats.append(j)
-with open(input_dir_bl + 'Sparkly.txt') as f:
-    for line in f:
-        j = json.loads(line)
-        j['vec'] = 'Sparkly'
-        base_stats.append(j)        
 
 temp_block_df = block_df.loc[block_df.Vectorizer =='st5']
 temp_block_df = temp_block_df[['Case', 'k', 'Time', 'Precision', 'Recall', 'Vectorizer']]
@@ -661,9 +644,9 @@ with open(input_dir_sa +'vectorization_synthetic.txt') as f:
     lines = []
     for line in f.readlines():
         line = json.loads(line)
-        lines.append((line['vectorizer'], line['time'], line['file'], line['memory']['process']['rss']))
+        lines.append((line['vectorizer'], line['time'], line['file']))
     
-vec_df2 = pd.DataFrame(lines, columns=['Vectorizer', 'Total Time', 'File', 'Memory Process'])
+vec_df2 = pd.DataFrame(lines, columns=['Vectorizer', 'Total Time', 'File')
 vec_df2['File'] = vec_df2['File'].apply(lambda x: x.split('.')[0])
 vec_df2['File'] = vec_df2['File'].apply(lambda x: int(x[:-1])* (1000 if x[-1] == 'K' else 1000000) )
 vec_df2['Vectorizer'] = vec_df2['Vectorizer'].apply(lambda x: x[0]+x[-1]).str.upper()

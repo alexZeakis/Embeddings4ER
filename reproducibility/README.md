@@ -6,6 +6,11 @@ If you want to execute all experiments and visualizations at once, you can run t
 ./run_all.sh
 ```
 
+The default behaviour is to skip ZeroER. In case ZeroER should be executed as well, run:
+```
+./run_all.sh --zeroer
+```
+
 If not, run the commands in Partial Execution. Finally, check the Visualizations section to produce the corresponding plots.
 
 ## Partial Execution
@@ -25,10 +30,10 @@ For static models, please create a local directory with any given name, but insi
 This outer directory will be used in various executions. More instructions on each page.
 
 ### Environment
-Most executions are placed within the same conda environment, called `vldb2023_ea_basic`. To create and activate it, run:
+Most executions are placed within the same conda environment, called `vldb23_ea_basic`. To create and activate it, run:
 ```
-conda env create -f conda/vldb_ea_basic.yml
-conda activate vldb_ea_basic
+conda env create -f conda/vldb23_ea_basic.yml
+conda activate vldb23_ea_basic
 ```
 
 ### Executions
