@@ -3,7 +3,8 @@ import pandas as pd
 from time import time
 import json
 import sys
-from pytokenjoin.jaccard.jaccard_knn import JaccardTokenJoin as jtk
+import re
+from pytokenjoin.jaccard.join_knn import JaccardTokenJoin as jtk
 
 def evaluate(true, preds):
     prec = len(true & preds) / len(preds)
@@ -45,8 +46,10 @@ if __name__ == '__main__':
             df2 = pd.read_csv('{}/{}/{}.csv'.format(input_dir, dir, file2), sep=sep)
             gt = pd.read_csv('{}/{}/{}.csv'.format(input_dir, dir, ground), sep=sep)
             
-            df1[tid] = df1[tid].fillna('')
-            df2[tid] = df2[tid].fillna('')
+            #df1[tid] = df1[tid].fillna('')
+            #df2[tid] = df2[tid].fillna('')
+            df1[tid] = df1[tid].fillna('').apply(lambda x: re.sub(r'\s{2,}', ' ', x))
+            df2[tid] = df2[tid].fillna('').apply(lambda x: re.sub(r'\s{2,}', ' ', x))
             
             df1[tid] = df1[tid].apply(lambda x: list(set(x.split(' '))))
             df2[tid] = df2[tid].apply(lambda x: list(set(x.split(' '))))
@@ -54,9 +57,9 @@ if __name__ == '__main__':
             true = set(gt[['D1', 'D2']].apply(lambda x: (x[0], x[1]), axis=1).tolist())
             
 #            for k in [1, 5]:
-            for k in [10]:
+            for k in [1, 5, 10]:
                 t1 = time()
-                output_df = jtk().tokenjoin_foreign(df2, df1, cid, cid, tid, tid, k=k)
+                output_df = jtk().tokenjoin_foreign(df2, df1, cid, cid, tid, tid, k=k, delta_alg=2, alg_run=0)
                 t2 = time()
                 # preds = set(output_df[['l_id', 'r_id']].apply(lambda x: (x[0], x[1]), axis=1).tolist())
                 preds = set(output_df[['l_id', 'r_id']].apply(lambda x: (x[1], x[0]), axis=1).tolist())
