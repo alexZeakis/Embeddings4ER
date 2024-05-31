@@ -1,14 +1,32 @@
 # Guidelines to reproduce experiments
 
-## Total Execution
-If you want to execute all experiments and visualizations at once, you can run the above command:
+All experiments were executed on a server with Ubuntu 20.04, AMD Ryzen Threadripper 3960X 24-Core processor, 256 GB RAM and an RTX 4090 GPU.
+
+## Download Docker image
 ```
-./run_all.sh
+docker image pull alzeakis/embeddings4er:v2
 ```
 
-The default behaviour is to skip ZeroER. In case ZeroER should be executed as well, run:
+## Create container
 ```
-./run_all.sh --zeroer
+docker run -v path-to-logs:/app/logs/ -v path-to-plots:/app/plots/ -d --gpus=all alzeakis/embeddings4er:v2
+```
+The two -v options guarantee that you can find the logs and plots created inside the container at your host machine. Simply replace the <path-to-logs> and <path-to-plots> with your local directories. Since these affects logs in your local directories, avoid passing existing directories. The -d --gpus=all option guarantees that the container will have access to the gpus of the host machine. If you want CPUs only, please remove this option.
+
+## Enter container
+```
+docker exec -it <container-id> bash
+```
+
+## Reproduce experiments
+If you want to execute all experiments and visualizations at once, you can run the above command:
+```
+source run_all.sh
+```
+
+The default behaviour is to skip ZeroER and experiments on Synthetic data. The first one is time-consuming and the latter needs high disk usage (>300GB). They can be added in the execution via special arguments, i.e.:
+```
+source run_all.sh --zeroer --synthetic
 ```
 
 If not, run the commands in Partial Execution. Finally, check the Visualizations section to produce the corresponding plots.
@@ -23,18 +41,9 @@ There are 3 folders of data:
 You can download all data [here](https://zenodo.org/record/8433873/files/data_ea.tar.gz).
 
 ### Static Models
-For static models, please create a local directory with any given name, but inside create two directories:
- - One called `fasttext/` and inside download the file found [here](https://dl.fbaipublicfiles.com/fasttext/vectors-wiki/wiki.en.zip).
- - One called `word2vec/` and inside download the file found [here](https://drive.google.com/u/0/uc?id=0B7XkCwpI5KDYNlNUTTlSS21pQmM&export=download). To download a GDrive file, one can use the tool [GDown](https://github.com/wkentaro/gdown), which is used like `wget` but for GDrive links. It can be installed via PyPI with `pip install gdown`.
+For static models, please download the versions of the models we have used from [here](https://zenodo.org/records/11243756/files/models.tar.gz). After decompressing it, it will create a directory called models/.
  
 This outer directory will be used in various executions. More instructions on each page.
-
-### Environment
-Most executions are placed within the same conda environment, called `vldb23_ea_basic`. To create and activate it, run:
-```
-conda env create -f conda/vldb23_ea_basic.yml
-conda activate vldb23_ea_basic
-```
 
 ### Executions
 #### Core executions
@@ -75,6 +84,12 @@ conda activate vldb23_ea_basic
 
     * For Supervised Matching:
         * For Supervised Matching on static models (*Exec 4a*):
+            * To create the environment:
+            ```
+                python -m venv deepmatcher_venv
+                source deepmatcher_venv/bin/activate
+                pip install deepmatcher torch==1.9.0 torchtext==0.10
+            ```
             * To transform labeled data, run:
             ```
             python transform_labeled.py <data_dir_input> <data_dir_output>

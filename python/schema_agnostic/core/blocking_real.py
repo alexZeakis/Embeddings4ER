@@ -161,7 +161,7 @@ for nocase, (data1, data2, ground_file, sep, dir, cols) in enumerate(cases):
                 #scores2.append((nocase, nocol, vec, k, rec_qi, rec_iq))
             #break
         #break
-    break
+    #break
     
 os.makedirs(os.path.dirname(log_file), exist_ok=True)
 results = pd.DataFrame(scores2, columns=['Case', 'Columns', 'Vectorizer', 'k', 'Direction',

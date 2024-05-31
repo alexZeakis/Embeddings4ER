@@ -36,10 +36,10 @@ train, validation, test = dm.data.process(
 
 model = dm.MatchingModel()
 train_time = time()
-model.run_train(train, validation, best_save_path='best_model.pth')
+model.run_train(train, validation, best_save_path='best_model.pth', device="cpu")
 train_time = time() - train_time
 test_time = time()
-f1 = model.run_eval(test)
+f1 = model.run_eval(test, device="cpu")
 test_time = time() - test_time
 
 result = {'model_type': model_name, 'data_name': data_dir.split('/')[-1], 

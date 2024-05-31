@@ -55,7 +55,6 @@ f_k = ('k', 'eq', 10)
 
 # In[2]:
 
-
 with open(input_dir_sa + 'vectorization_real.txt') as f:
     lines = []
     for line in f.readlines():
@@ -377,7 +376,8 @@ match_df_sup2 = match_df_sup2.pivot(index='data_name', columns='model_type', val
 total_cols = {'static': ['FT', 'GE'],
               'BERT': ['BT', 'AT', 'RA', 'DT', 'XT'],
               'SBERT': ['ST', 'SA', 'SM'],
-              'sota': ['RA', 'DO', 'D+'],}
+#              'sota': ['RA', 'DO', 'D+'],}
+              'sota': ['DO', 'D+'],}
 
 theta_case_order = case_order2 + [case_order2[0]]
 for grp, cols in total_cols.items():
@@ -627,7 +627,6 @@ fig1.update_layout(yaxis_range=[0,10], xaxis_range=[0,1], font=dict(size=20,),
 fig1.show()
 fig1.write_image(f"../plots_2/efficiency/sup_matching_pareto.pdf")
 
-
 # ## Scalability
 
 # ## Vectorization
@@ -646,7 +645,7 @@ with open(input_dir_sa +'vectorization_synthetic.txt') as f:
         line = json.loads(line)
         lines.append((line['vectorizer'], line['time'], line['file']))
     
-vec_df2 = pd.DataFrame(lines, columns=['Vectorizer', 'Total Time', 'File')
+vec_df2 = pd.DataFrame(lines, columns=['Vectorizer', 'Total Time', 'File'])
 vec_df2['File'] = vec_df2['File'].apply(lambda x: x.split('.')[0])
 vec_df2['File'] = vec_df2['File'].apply(lambda x: int(x[:-1])* (1000 if x[-1] == 'K' else 1000000) )
 vec_df2['Vectorizer'] = vec_df2['Vectorizer'].apply(lambda x: x[0]+x[-1]).str.upper()
